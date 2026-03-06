@@ -40,10 +40,21 @@ export const fetchUser = createAsyncThunk(
     "auth/fetchUser",
     async (_, { rejectWithValue }) => {
         try {
-            const response = await API.get("/me");
+
+            const token = localStorage.getItem("token");
+
+            const response = await API.get("/me", {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
             return response.data;
+
         } catch (error) {
-            return rejectWithValue(error.response.data);
+
+            return rejectWithValue(error.response?.data || error.message);
+
         }
     }
 );
