@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBooks, updateBook, deleteBook } from "../actions/books.actions";
+import { fetchBooks, updateBook, deleteBook,addBook } from "../actions/books.actions";
 
 const initialState = {
   books: [],
