@@ -24,10 +24,10 @@ export default function AddBookForm() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    dispatch(addBook(form));
+    await dispatch(addBook(form));
 
     setForm({ title: "", author: "" });
   };

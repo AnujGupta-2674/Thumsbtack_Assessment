@@ -21,7 +21,7 @@ const booksSlice = createSlice({
 
       .addCase(fetchBooks.fulfilled, (state, action) => {
         state.loading = false;
-        state.books = action.payload;
+        state.books.unshift(action.payload);
       })
 
       .addCase(fetchBooks.rejected, (state, action) => {
