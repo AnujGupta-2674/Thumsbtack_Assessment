@@ -17,6 +17,7 @@ export const fetchBooks = createAsyncThunk(
           Authorization: `Bearer ${token}`
         }
       });
+
       return response.data.books;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -30,10 +31,14 @@ export const fetchBooks = createAsyncThunk(
 export const addBook = createAsyncThunk(
   "books/addBook",
   async (data, { rejectWithValue }) => {
-
     try {
+      const token = localStorage.getItem("token");
 
-      const response = await API.post("/books", data);
+      const response = await API.post("/books", data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
 
       return response.data.book;
 
@@ -52,7 +57,14 @@ export const updateBook = createAsyncThunk(
   "books/updateBook",
   async ({ id, data }, { rejectWithValue }) => {
     try {
-      const response = await API.put(`/books/${id}`, data);
+      const token = localStorage.getItem("token");
+
+      const response = await API.put(`/books/${id}`, data, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
       return response.data.book;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -67,7 +79,14 @@ export const deleteBook = createAsyncThunk(
   "books/deleteBook",
   async (id, { rejectWithValue }) => {
     try {
-      await API.delete(`/books/${id}`);
+      const token = localStorage.getItem("token");
+
+      await API.delete(`/books/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+
       return id;
     } catch (error) {
       return rejectWithValue(error.response.data);
