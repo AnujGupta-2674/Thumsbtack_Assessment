@@ -9,7 +9,14 @@ export const fetchBooks = createAsyncThunk(
   async (status, { rejectWithValue }) => {
     try {
       const url = status ? `/books?status=${status}` : "/books";
-      const response = await API.get(url);
+
+      const token = localStorage.getItem("token");
+
+      const response = await API.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       return response.data.books;
     } catch (error) {
       return rejectWithValue(error.response.data);
